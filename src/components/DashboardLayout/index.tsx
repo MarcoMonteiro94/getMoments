@@ -11,9 +11,8 @@ import {
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
 const navigation = [
-  { name: 'Conferência de Entrada', href: '#', icon: HomeIcon, current: true },
-  { name: 'Separação (Picking)', href: '#', icon: ClockIcon, current: false },
-  { name: 'Expedição', href: '#', icon: ScaleIcon, current: false }
+  { name: 'Médicos', href: '/dashboard', current: true },
+  { name: 'Configurações', href: '#', current: false }
 ]
 
 function classNames(...classes: any) {
@@ -57,7 +56,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               leaveFrom="translate-x-0"
               leaveTo="-translate-x-full"
             >
-              <Dialog.Panel className="relative flex w-full max-w-xs flex-1 flex-col bg-blue-900 pt-5 pb-4">
+              <Dialog.Panel className="relative flex w-full max-w-xs flex-1 flex-col bg-blue-400 pt-5 pb-4">
                 <Transition.Child
                   as={Fragment}
                   enter="ease-in-out duration-300"
@@ -84,8 +83,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                 <div className="flex flex-shrink-0 items-center px-4">
                   <img
                     className="mx-auto w-auto"
-                    src="/images/logo-mobilize.png"
-                    alt="Mobilize logo"
+                    src="/images/logo-getMoments.png"
+                    alt="getMoments logo"
                   />
                 </div>
                 <nav
@@ -105,10 +104,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                         )}
                         aria-current={item.current ? 'page' : undefined}
                       >
-                        <item.icon
-                          className="mr-4 h-6 w-6 flex-shrink-0 text-blue-200"
-                          aria-hidden="true"
-                        />
                         {item.name}
                       </a>
                     ))}
@@ -123,47 +118,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         </Dialog>
       </Transition.Root>
 
-      {/* Static sidebar for desktop */}
-      <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
-        {/* Sidebar component, swap this element with another sidebar if you like */}
-        <div className="flex flex-grow flex-col overflow-y-auto bg-blue-900 pt-5 pb-4">
-          <div className="flex flex-shrink-0 items-center px-4">
-            <img
-              className="mx-auto w-auto"
-              src="/images/logo-mobilize.png"
-              alt="Mobilize logo"
-            />
-          </div>
-          <nav
-            className="mt-5 flex flex-1 flex-col divide-y divide-blue-800 overflow-y-auto"
-            aria-label="Sidebar"
-          >
-            <div className="space-y-1 px-2">
-              {navigation.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className={classNames(
-                    item.current
-                      ? 'bg-blue-800 text-white'
-                      : 'text-blue-100 hover:bg-blue-600 hover:text-white',
-                    'group flex items-center rounded-md px-2 py-2 text-sm font-medium leading-6'
-                  )}
-                  aria-current={item.current ? 'page' : undefined}
-                >
-                  <item.icon
-                    className="mr-4 h-6 w-6 flex-shrink-0 text-blue-200"
-                    aria-hidden="true"
-                  />
-                  {item.name}
-                </a>
-              ))}
-            </div>
-          </nav>
-        </div>
-      </div>
-
-      <div className="flex flex-1 flex-col lg:pl-64">
+      <div className="flex flex-1 flex-col">
         <div className="flex h-16 flex-shrink-0 border-b border-gray-200 bg-white shadow-md  lg:border-none">
           <button
             type="button"
@@ -173,8 +128,27 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             <span className="sr-only">Open sidebar</span>
             <Bars3CenterLeftIcon className="h-6 w-6" aria-hidden="true" />
           </button>
-          <div className="flex w-full flex-1 justify-end px-4 sm:px-6 lg:mx-auto lg:px-8">
-            <div className="ml-4 flex items-center md:ml-6">
+          <div className="mx-4 flex w-full items-center justify-end px-4 md:ml-6 lg:mx-auto lg:max-w-7xl lg:justify-between">
+            <nav className="hidden flex-1 items-center divide-y divide-blue-800 overflow-y-auto lg:flex">
+              <div className="flex">
+                {navigation.map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className={classNames(
+                      item.current
+                        ? 'text-sky-800'
+                        : 'text-sky-600 hover:text-sky-800',
+                      'group flex items-center rounded-md px-2 py-2 text-sm font-medium leading-6'
+                    )}
+                    aria-current={item.current ? 'page' : undefined}
+                  >
+                    {item.name}
+                  </a>
+                ))}
+              </div>
+            </nav>
+            <div className="flex">
               <button
                 type="button"
                 className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
@@ -221,7 +195,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                             'block px-4 py-2 text-sm text-gray-700'
                           )}
                         >
-                          Your Profile
+                          Perfil
                         </a>
                       )}
                     </Menu.Item>
@@ -234,7 +208,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                             'block px-4 py-2 text-sm text-gray-700'
                           )}
                         >
-                          Settings
+                          Configurações
                         </a>
                       )}
                     </Menu.Item>
@@ -258,7 +232,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           </div>
         </div>
         <main className="flex-1 pb-8">
-          <div className="p-8">{children}</div>
+          <div className="mx-auto py-8 px-4 lg:max-w-7xl">{children}</div>
         </main>
       </div>
     </div>
